@@ -1,6 +1,6 @@
 #!/usr/bin/node
 class Rectangle {
-  constructor(w, h) {
+  constructor (w, h) {
     if (w > 0 && h > 0) {
       this.width = w;
       this.height = h;
@@ -9,24 +9,27 @@ class Rectangle {
       return `${Rectangle}`;
     }
   }
-  print() {
+
+  print () {
     let i = 0;
     for (i = 0; i < this.height; i++) {
-      let line = "";
+      let line = '';
       for (let j = 0; j < this.width; j++) {
-        line += "X";
+        line += 'X';
       }
       console.log(line);
     }
   }
-  rotate() {
-    let temp = this.width;
+
+  rotate () {
+    const temp = this.width;
     this.width = this.height;
     this.height = temp;
   }
-  double() {
-    let temp = this.width;
-    let temp2 = this.height;
+
+  double () {
+    const temp = this.width;
+    const temp2 = this.height;
     this.width = 2 * temp;
     this.height = temp2 * 2;
   }
