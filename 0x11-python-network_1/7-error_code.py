@@ -1,15 +1,20 @@
 #!/usr/bin/python3
-""" With request ask for header"""
-import requests
-import sys
+"""
+Script that takes in a URL, sends a request to the URL and displays
+the body of the response.
 
-try:
-    url = sys.argv[1]
-    html = requests.get(url)
-    status = int(html.status_code)
-    if status >= 400:
-        print("Error code: ", status)
+Usage: ./7-error_code.py <URL>
+  - Handles HTTP errors.
+"""
+from sys import argv
+import requests
+
+
+if __name__ == "__main__":
+    url = argv[1]
+    req = requests.get(url)
+
+    if req.status_code >= 400:
+        print("Error code: {}".format(req.status_code))
     else:
-        print(html.text)
-except:
-    pass
+        print(req.text)
