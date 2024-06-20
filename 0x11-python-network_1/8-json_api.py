@@ -1,20 +1,25 @@
 #!/usr/bin/python3
-""" With request ask for header"""
+"""
+Script that takes in a letter and sends a POST request to
+http://0.0.0.0:5000/search_user with the letter as a parameter.
+
+sage: ./8-json_api.py <letter>
+  - The letter is sent as the value of the variable `q`.
+  - If no letter is provided, sends `q=""`.
+"""
+from sys import argv
 import requests
-import sys
+
 
 if __name__ == "__main__":
-    url = "http://0.0.0.0:5000/search_user"
-    if len(sys.argv) < 2:
-        data = {'q': ""}
-    else:
-        data = {'q': sys.argv[1]}
-    html = requests.post(url, data)
+    letter = "" if len(argv) == 1 else argv[1]
+    req = requests.post("http://0.0.0.0:5000/search_user", {"q": letter})
+
     try:
-        my_json = html.json()
-        if len(my_json) is 0:
+        response = req.json()
+        if response == {}:
             print("No result")
         else:
-            print("[{}] {}".format(my_json.get('id'), my_json.get('name')))
-    except BaseException:
+            print("[{}] {}".format(response.get("id"), response.get("name")))
+    except ValueError:
         print("Not a valid JSON")
