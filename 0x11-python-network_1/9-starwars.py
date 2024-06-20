@@ -1,25 +1,20 @@
 #!/usr/bin/python3
-"""
-Script that takes in a letter and sends a POST request to
-http://0.0.0.0:5000/search_user with the letter as a parameter.
-
-sage: ./8-json_api.py <letter>
-  - The letter is sent as the value of the variable `q`.
-  - If no letter is provided, sends `q=""`.
-"""
-from sys import argv
+""" With request ask for header"""
 import requests
-
+import sys
 
 if __name__ == "__main__":
-    letter = "" if len(argv) == 1 else argv[1]
-    req = requests.post("http://0.0.0.0:5000/search_user", {"q": letter})
-
+    url = "http://swapi.co/api/people/?"
+    if len(sys.argv) < 2:
+        sys.exit(1)
+    else:
+        data = {'search': sys.argv[1]}
+    html = requests.get(url, params=data)
     try:
-        response = req.json()
-        if response == {}:
-            print("No result")
-        else:
-            print("[{}] {}".format(response.get("id"), response.get("name")))
-    except ValueError:
-        print("Not a valid JSON")
+        my_json = html.json()
+        print("Number of results: ", my_json.get('count'))
+        list_results = my_json.get('results')
+        for dict_results in list_results:
+            print(dict_results.get('name'))
+    except:
+        pass
