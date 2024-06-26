@@ -11,8 +11,7 @@ import MySQLdb
 
 def list_states(username, password, db_name):
     """
-Connects to a MySQL database and lists all states.
-    
+    Connects to a MySQL database and lists all states
     Args:
         username (str): The MySQL username.
         password (str): The MySQL password.
@@ -35,7 +34,7 @@ Connects to a MySQL database and lists all states.
 
 if __name__ == "__main__":
     if len(sys.argv) != 4:
-        print("Usage: ./0-select_states.py <mysql username>
-                <mysql password> <database ")
+        print("Usage: ./0-select_states.py <mysql username> "
+              "<mysql password> <database name>")
     else:
         list_states(sys.argv[1], sys.argv[2], sys.argv[3])
